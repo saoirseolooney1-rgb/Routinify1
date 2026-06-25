@@ -1,0 +1,4 @@
+[build]
+  base = "artifacts/routinify"
+  command = "pnpm run build"
+  publish = "dist/public"
