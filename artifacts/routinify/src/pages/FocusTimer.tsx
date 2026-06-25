@@ -4,11 +4,16 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { CelebrationBanner } from "@/components/CelebrationBanner";
 
-interface FocusTimerProps {}
-
-export const FocusTimer: FC<FocusTimerProps> = () => {
-  const [minutes, setMinutes] = useState(25);
-  const [timeLeft, setTimeLeft] = useState(25 * 60);
+export const FocusTimer: FC = () => {
+  const [minutes, setMinutes] = useState<number>(() => {
+    const saved = localStorage.getItem('routinify-timer-minutes');
+    return saved !== null ? parseInt(saved, 10) : 25;
+  });
+  const [timeLeft, setTimeLeft] = useState<number>(() => {
+    const saved = localStorage.getItem('routinify-timer-minutes');
+    const mins = saved !== null ? parseInt(saved, 10) : 25;
+    return mins * 60;
+  });
   const [isRunning, setIsRunning] = useState(false);
   const [showCelebration, setShowCelebration] = useState(false);
 
@@ -30,12 +35,15 @@ export const FocusTimer: FC<FocusTimerProps> = () => {
   }, [isRunning, timeLeft]);
 
   const handlePreset = (mins: number) => {
-    setMinutes(mins);
-    setTimeLeft(mins * 60);
+    const clamped = Math.max(0, Math.min(120, mins));
+    setMinutes(clamped);
+    setTimeLeft(clamped * 60);
     setIsRunning(false);
+    localStorage.setItem('routinify-timer-minutes', String(clamped));
   };
 
   const toggleTimer = () => {
+    if (minutes === 0) return;
     if (timeLeft === 0 && !isRunning) {
       setTimeLeft(minutes * 60);
     }
@@ -53,14 +61,14 @@ export const FocusTimer: FC<FocusTimerProps> = () => {
     return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
   };
 
-  const progress = timeLeft / (minutes * 60);
+  const progress = minutes === 0 ? 0 : timeLeft / (minutes * 60);
   const radius = 140;
   const circumference = 2 * Math.PI * radius;
   const strokeDashoffset = circumference - progress * circumference;
 
   return (
     <div className="max-w-4xl mx-auto p-6 flex flex-col items-center animate-in fade-in duration-500">
-      <CelebrationBanner 
+      <CelebrationBanner
         isOpen={showCelebration}
         onClose={() => setShowCelebration(false)}
         title="Session Complete!"
@@ -98,13 +106,13 @@ export const FocusTimer: FC<FocusTimerProps> = () => {
               {formatTime(timeLeft)}
             </span>
             <span className="text-teal-600 mt-2 font-medium">
-              {isRunning ? "Focusing..." : timeLeft === 0 ? "Done" : "Ready"}
+              {minutes === 0 ? "Set a duration" : isRunning ? "Focusing..." : timeLeft === 0 ? "Done" : "Ready"}
             </span>
           </div>
         </div>
 
         <div className="flex flex-wrap justify-center gap-3 mb-8">
-          {[25, 15, 10, 5].map((preset) => (
+          {[5, 10, 15, 25].map((preset) => (
             <Button
               key={preset}
               variant={minutes === preset ? "default" : "outline"}
@@ -115,26 +123,31 @@ export const FocusTimer: FC<FocusTimerProps> = () => {
             </Button>
           ))}
           <div className="flex items-center gap-2 px-3 border border-teal-200 rounded-xl">
-            <input 
-              type="number" 
+            <input
+              type="number"
               value={minutes}
-              onChange={(e) => handlePreset(Math.max(1, Math.min(120, parseInt(e.target.value) || 1)))}
+              onChange={(e) => {
+                const val = e.target.value === '' ? 0 : parseInt(e.target.value, 10);
+                if (!isNaN(val)) handlePreset(val);
+              }}
               className="w-12 text-center text-teal-900 outline-none font-medium bg-transparent"
-              min="1" max="120"
+              min="0"
+              max="120"
             />
             <span className="text-sm font-medium text-teal-700 pr-2">min</span>
           </div>
         </div>
 
         <div className="flex gap-4">
-          <Button 
-            onClick={toggleTimer} 
-            className="rounded-full px-8 py-6 text-lg bg-gradient-to-r from-teal-500 to-sky-500 hover:from-teal-600 hover:to-sky-600 text-white shadow-lg hover:shadow-xl transition-all"
+          <Button
+            onClick={toggleTimer}
+            disabled={minutes === 0}
+            className="rounded-full px-8 py-6 text-lg bg-gradient-to-r from-teal-500 to-sky-500 hover:from-teal-600 hover:to-sky-600 text-white shadow-lg hover:shadow-xl transition-all disabled:opacity-50"
           >
             {isRunning ? <Square className="w-5 h-5 mr-2" fill="currentColor" /> : <Play className="w-5 h-5 mr-2" fill="currentColor" />}
             {isRunning ? "Stop" : "Start"}
           </Button>
-          <Button 
+          <Button
             onClick={resetTimer}
             variant="outline"
             className="rounded-full px-6 py-6 border-teal-200 text-teal-700 hover:bg-teal-50"

@@ -6,8 +6,11 @@ export const SiteHeader: FC = () => {
       <h1 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-teal-600 to-sky-600 tracking-tight" style={{ fontFamily: 'Fraunces, serif' }}>
         routinify
       </h1>
-      <p className="text-teal-800/70 mt-2 text-sm md:text-base font-medium uppercase tracking-widest">
+      <p className="text-teal-800/70 mt-1 text-sm md:text-base font-medium uppercase tracking-widest">
         Classroom Operations Dashboard
+      </p>
+      <p className="text-teal-600/60 mt-1 text-xs md:text-sm font-medium">
+        A dashboard built with ❤️ for inclusive classrooms.
       </p>
     </header>
   );
