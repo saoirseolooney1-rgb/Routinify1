@@ -1,0 +1,37 @@
+Here is a comprehensive and structured prompt you can copy and paste directly into Replit's AI assistant. It is designed to set strict boundaries so the AI focuses exactly on your needs without overcomplicating the code or altering your core design.
+
+Copy and paste the text below into Replit:
+
+Act as an expert Front-End Web Developer. I have uploaded my existing HTML, CSS, and JavaScript files for the "Routinify" Teacher Dashboard. I need you to refine and polish this code based on the specific tasks below.
+
+CRITICAL RULES & CONSTRAINTS:
+
+Do not add any Replit-specific tools, libraries, or back-end dependencies. The code must remain 100% clean, standard vanilla HTML/CSS/JS so it can be easily exported and hosted anywhere.
+
+Do not change the core design, layout structure, or color scheme. Only enhance and polish what is already there.
+
+Edit only the files I have uploaded. Do not create unnecessary new files unless specifically requested.
+
+SPECIFIC TASKS:
+
+1. Add Missing Images and Emojis:
+Review the UI and insert appropriate, professional emojis or clean SVG icons where visual elements are missing. If placeholder images are needed, use standard web-accessible image URLs (like Unsplash source links) that do not require external library installations.
+
+2. Refine the Breathing Exercises Tab:
+The current animations are either not working well or do not look realistic. Please rewrite the CSS animations (and the JS that triggers them, if necessary) to make the breathing expansions and contractions smooth, natural, and realistic.
+
+3. Fix the Timer Section:
+The 'Start' button is currently not displaying properly. Fix the CSS/HTML for this button so it aligns correctly, is fully visible, and looks clickable. Ensure the timer UI is clean and aligned.
+
+4. Overall Professional Polish:
+Apply subtle UI/UX enhancements to make the dashboard look highly professional. This includes:
+
+Standardizing padding and margins for breathing room.
+
+Adding subtle, modern box-shadow effects to cards or containers.
+
+Smoothing out :hover states on buttons and links with CSS transitions.
+
+Ensuring text contrast and typography look modern and clean.
+
+Please provide the updated code for the files, and briefly summarize the exact changes you made so I can review them.

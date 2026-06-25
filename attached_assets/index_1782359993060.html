@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>routinify Dashboard</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./script.js" defer></script>
+</head>
+<body>
+  <button class="bookmark-reminder" type="button" id="bookmarkReminder" aria-label="Open quick help">
+    <span class="bookmark-inner">
+      <span aria-hidden="true">✨</span>
+      <p>
+        <strong>Workspace tips</strong>
+        <small>Open quick controls and shortcuts</small>
+      </p>
+    </span>
+  </button>
+
+  <header class="site-header">
+    <p class="widget-label">routinify workspace</p>
+    <h1 class="site-title">routinify</h1>
+    <p class="site-tagline">A modern classroom operations dashboard for planning, focus, wellbeing, routines, rewards, and quick daily teaching tools.</p>
+  </header>
+
+  <nav class="site-nav" aria-label="Primary navigation">
+    <div class="nav-inner">
+      <a class="nav-link active" href="#" data-view-target="dashboard">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12 12 4l8 8v8H4z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Dashboard</span>
+      </a>
+      <a class="nav-link" href="#" data-view-target="timer">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="13" r="7" stroke="currentColor" stroke-width="2"/><path d="M12 13V9m-3-6h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <span>Focus Timer</span>
+      </a>
+      <a class="nav-link" href="#" data-view-target="breathing">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12c2-4 4-6 7-6s5 2 7 6c-2 4-4 6-7 6s-5-2-7-6Z" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg>
+        <span>Breathing</span>
+      </a>
+      <a class="nav-link" href="#" data-view-target="zones">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3v18M3 12h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="2"/></svg>
+        <span>Zones</span>
+      </a>
+      <a class="nav-link" href="#" data-view-target="schedule">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2" stroke="currentColor" stroke-width="2"/><path d="M8 3v4m8-4v4M7 11h10M7 15h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <span>Schedule</span>
+      </a>
+      <a class="nav-link" href="#" data-view-target="nownext">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7h16M4 17h10M15 14l5 3-5 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Now &amp; Next</span>
+      </a>
+      <a class="nav-link" href="#" data-view-target="rewards">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m12 3 2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.6 6.7 19l1-5.8L3.5 9.2l5.9-.9Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+        <span>Rewards</span>
+      </a>
+      <a class="nav-link" href="#" data-view-target="wheel">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="2"/><path d="M12 4v16M4 12h16M7.5 7.5l9 9M16.5 7.5l-9 9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <span>Picker Wheel</span>
+      </a>
+    </div>
+  </nav>
+
+  <main>
+    <section class="view view--wide fade-up" id="dashboard" data-view>
+      <div class="dashboard-header">
+        <button class="customize-btn" id="customizeToggle" type="button" aria-expanded="false" aria-controls="customizePanel">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 15.5A3.5 3.5 0 1 0 12 8.5a3.5 3.5 0 0 0 0 7Zm7.4-2.5.6-1-1-1.7.3-2-1.8-.7-.8-1.9-2 .1-1.5-1.2-1.5 1.2-2-.1-.8 1.9-1.8.7.3 2-1 1.7.6 1-1 .9 1 1.7-.3 2 1.8.7.8 1.9 2-.1 1.5 1.2 1.5-1.2 2 .1.8-1.9 1.8-.7-.3-2 1-1.7-.6-.9Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+          <span>Customize layout</span>
+        </button>
+      </div>
+
+      <section class="customize-panel hidden" id="customizePanel" aria-label="Customize dashboard">
+        <h3>Choose what appears on your dashboard</h3>
+        <div class="customize-grid">
+          <label class="customize-label"><input type="checkbox" checked data-widget-toggle="snapshot">Snapshot</label>
+          <label class="customize-label"><input type="checkbox" checked data-widget-toggle="notes">Quick notes</label>
+          <label class="customize-label"><input type="checkbox" checked data-widget-toggle="wellbeing">Wellbeing check</label>
+          <label class="customize-label"><input type="checkbox" checked data-widget-toggle="tools">Tools</label>
+        </div>
+        <button class="done-btn" id="customizeDone" type="button">Done</button>
+      </section>
+
+      <section data-dashboard-block="tools">
+        <h3 class="section-heading">Tools</h3>
+        <div class="tools-grid">
+          <button class="tool-card fade-up fade-up-1" type="button" data-view-target="timer">
+            <span class="tool-icon tool-icon--teal">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="13" r="7" stroke="currentColor" stroke-width="2"/><path d="M12 13V9m-3-6h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </span>
+            <h3>Focus timer</h3>
+            <p>Run structured work cycles, brain breaks, and guided countdowns for lessons or intervention blocks.</p>
+          </button>
+          <button class="tool-card fade-up fade-up-2" type="button" data-view-target="breathing">
+            <span class="tool-icon tool-icon--sky">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12c2-4 5-6 8-6s6 2 8 6c-2 4-5 6-8 6s-6-2-8-6Z" stroke="currentColor" stroke-width="2"/></svg>
+            </span>
+            <h3>Breathing room</h3>
+            <p>Open a calm regulation activity with quick switches between butterfly breathing and box breathing.</p>
+          </button>
+          <button class="tool-card fade-up fade-up-3" type="button" data-view-target="zones">
+            <span class="tool-icon tool-icon--amber">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M12 7v5l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </span>
+            <h3>Zones Of Regulation</h3>
+            <p>Guide learners to identify energy and regulation states with matching support strategies.</p>
+          </button>
+          <button class="tool-card fade-up fade-up-4" type="button" data-view-target="schedule">
+            <span class="tool-icon tool-icon--green">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2" stroke="currentColor" stroke-width="2"/><path d="M8 3v4m8-4v4M7 11h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </span>
+            <h3>Visual schedule</h3>
+            <p>Build activity rows with icons for transitions, structure, and predictable classroom routines.</p>
+          </button>
+          <button class="tool-card fade-up fade-up-5" type="button" data-view-target="nownext">
+            <span class="tool-icon tool-icon--indigo">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 7h14M5 17h9M15 14l4 3-4 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <h3>Now &amp; next board</h3>
+            <p>Set immediate expectations with a simple two-step whiteboard layout for students who need clarity.</p>
+          </button>
+          <button class="tool-card fade-up fade-up-6" type="button" data-view-target="rewards">
+            <span class="tool-icon tool-icon--yellow">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m12 3 2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.6 6.7 19l1-5.8L3.5 9.2l5.9-.9Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+            </span>
+            <h3>Star rewards</h3>
+            <p>Track motivation visually, define a reward target, and celebrate milestone completion in class.</p>
+          </button>
+          <button class="tool-card fade-up fade-up-6" type="button" data-view-target="wheel">
+            <span class="tool-icon tool-icon--purple">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="2"/><path d="M12 4v16M4 12h16M7.5 7.5l9 9M16.5 7.5l-9 9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </span>
+            <h3>Picker wheel</h3>
+            <p>Randomize turns, group participation, or selection routines with a configurable spinner.</p>
+          </button>
+        </div>
+      </section>
+
+      <div class="widgets-grid">
+        <article class="widget fade-up fade-up-2" data-dashboard-block="snapshot">
+          <span class="widget-label">Today</span>
+          <p class="widget-date-text" id="todayDate">Wednesday, June 24</p>
+        </article>
+        <article class="widget fade-up fade-up-3" data-dashboard-block="notes">
+          <span class="widget-label">Quick notes</span>
+          <textarea class="quick-notes" id="quickNotes" placeholder="Capture reminders, student observations, or follow-ups..."></textarea>
+        </article>
+        <article class="widget fade-up fade-up-4" data-dashboard-block="wellbeing">
+          <span class="widget-label">Class climate</span>
+          <p class="widget-date-text" id="wellbeingStatus">How is the room feeling?</p>
+          <div class="wellbeing-emojis" role="group" aria-label="Class mood">
+            <button class="emoji-btn emoji-btn--happy" type="button" data-wellbeing="Calm and ready" aria-pressed="false">😊</button>
+            <button class="emoji-btn emoji-btn--neutral" type="button" data-wellbeing="Steady but distracted" aria-pressed="false">😐</button>
+            <button class="emoji-btn emoji-btn--sad" type="button" data-wellbeing="Needs regulation support" aria-pressed="false">😟</button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="view hidden" id="timer" data-view>
+      <button class="back-btn" type="button" data-view-target="dashboard">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 18 9 12l6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Back to dashboard</span>
+      </button>
+      <h2 class="page-title">Focus timer</h2>
+      <p class="page-desc">Run a simple countdown for teacher prep, intervention groups, rotations, or student independent work.</p>
+
+      <div class="timer-center">
+        <div class="timer-ring-wrap">
+          <svg width="320" height="320" viewBox="0 0 320 320" aria-hidden="true">
+            <circle cx="160" cy="160" r="140" fill="none" stroke="#ccfbf1" stroke-width="20"></circle>
+            <circle cx="160" cy="160" r="140" fill="none" stroke="#0d9488" stroke-width="20" stroke-linecap="round" transform="rotate(-90 160 160)" class="timer-ring" id="timerRing"></circle>
+          </svg>
+          <div class="timer-display-inner">
+            <div class="timer-digits" id="timerDigits">25:00</div>
+            <div class="timer-status-text" id="timerStatus" aria-live="polite">Ready to start</div>
+          </div>
+        </div>
+
+        <div class="timer-custom-section">
+          <label class="timer-custom-label" for="timerMinutes">Custom duration</label>
+          <div class="timer-custom-row">
+            <input class="timer-minutes-input" id="timerMinutes" type="number" min="1" max="120" value="25">
+            <span class="timer-unit-label">minutes</span>
+          </div>
+        </div>
+
+        <div class="timer-presets">
+          <p>Quick presets</p>
+          <div class="preset-buttons">
+            <button class="preset-btn active" type="button" data-minutes="25">25 min</button>
+            <button class="preset-btn" type="button" data-minutes="15">15 min</button>
+            <button class="preset-btn" type="button" data-minutes="10">10 min</button>
+            <button class="preset-btn" type="button" data-minutes="5">5 min</button>
+          </div>
+        </div>
+
+        <div class="timer-controls">
+          <button class="btn btn--green" type="button" id="timerStart">Start timer</button>
+        </div>
+
+        <div class="timer-done hidden" id="timerDone">
+          <div class="timer-done-emojis">🎉 ⏰ 🎯</div>
+          <div class="timer-done-title">Session complete</div>
+          <p class="timer-done-msg">Nice work. Reset the class, celebrate progress, or launch the next routine.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="view hidden" id="breathing" data-view>
+      <button class="back-btn" type="button" data-view-target="dashboard">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 18 9 12l6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Back to dashboard</span>
+      </button>
+      <h2 class="page-title">Breathing room</h2>
+      <p class="page-desc">Switch between two regulation routines and use the live prompts to guide the class.</p>
+
+      <div class="breathing-tabs" role="tablist" aria-label="Breathing exercises">
+        <button class="breathing-tab-btn btn--green-teal" type="button" data-breathing-tab="butterfly" aria-selected="true">Butterfly breathing</button>
+        <button class="breathing-tab-btn btn--blue" type="button" data-breathing-tab="box" aria-selected="false">Box breathing</button>
+      </div>
+
+      <section class="breathing-exercise exercise-butterfly" id="butterflyExercise">
+        <img alt="Butterfly breathing illustration" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 420 260'><rect width='420' height='260' rx='28' fill='%23dcfce7'/><circle cx='210' cy='130' r='34' fill='%2316a34a'/><ellipse cx='145' cy='120' rx='70' ry='48' fill='%2386efac'/><ellipse cx='275' cy='120' rx='70' ry='48' fill='%2386efac'/><ellipse cx='145' cy='178' rx='58' ry='36' fill='%23bbf7d0'/><ellipse cx='275' cy='178' rx='58' ry='36' fill='%23bbf7d0'/><path d='M210 96v-28M210 164v28' stroke='%23065f46' stroke-width='8' stroke-linecap='round'/></svg>">
+        <p class="breathing-status butterfly-status" id="butterflyStatus">Breathe in slowly</p>
+        <p class="butterfly-instruction" id="butterflyInstruction">Place your hands on your chest like butterfly wings and take a deep breath together.</p>
+        <div class="timer-controls">
+          <button class="btn btn--green-teal" type="button" id="butterflyStart">Start prompts</button>
+          <button class="btn btn--gray" type="button" id="butterflyStop">Stop</button>
+        </div>
+      </section>
+
+      <section class="breathing-exercise exercise-box hidden" id="boxExercise">
+        <img alt="Box breathing illustration" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 420 260'><rect width='420' height='260' rx='28' fill='%23dbeafe'/><rect x='110' y='55' width='200' height='150' rx='24' fill='%2393c5fd' stroke='%231d4ed8' stroke-width='8' stroke-dasharray='18 12'/><circle cx='210' cy='130' r='24' fill='%23eff6ff'/></svg>">
+        <p class="breathing-status box-status" id="boxStatus">Inhale</p>
+        <p class="box-counter" id="boxCounter">Cycle 1 of 4</p>
+        <p class="box-instruction" id="boxInstruction">Breathe in for four counts, hold for four, breathe out for four, and hold again.</p>
+        <div class="timer-controls">
+          <button class="btn btn--blue" type="button" id="boxStart">Start prompts</button>
+          <button class="btn btn--gray" type="button" id="boxStop">Stop</button>
+        </div>
+      </section>
+    </section>
+
+    <section class="view hidden" id="zones" data-view>
+      <button class="back-btn" type="button" data-view-target="dashboard">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 18 9 12l6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Back to dashboard</span>
+      </button>
+      <h2 class="page-title">Zones Of Regulation</h2>
+      <p class="page-desc">Tap a zone to reveal support ideas and help students name what they need next.</p>
+
+      <div class="zones-grid">
+        <button class="zone-panel zone-blue" type="button" data-zone-target="blue">
+          <span class="zone-emoji">😴</span>
+          <span class="zone-label">Blue</span>
+          <span class="zone-desc">Low energy, tired, sad, or unwell</span>
+        </button>
+        <button class="zone-panel zone-green" type="button" data-zone-target="green">
+          <span class="zone-emoji">😊</span>
+          <span class="zone-label">Green</span>
+          <span class="zone-desc">Calm, focused, ready to learn</span>
+        </button>
+        <button class="zone-panel zone-yellow" type="button" data-zone-target="yellow">
+          <span class="zone-emoji">😵</span>
+          <span class="zone-label">Yellow</span>
+          <span class="zone-desc">Wiggly, worried, excited, frustrated</span>
+        </button>
+        <button class="zone-panel zone-red" type="button" data-zone-target="red">
+          <span class="zone-emoji">😡</span>
+          <span class="zone-label">Red</span>
+          <span class="zone-desc">Overwhelmed, unsafe, out of control</span>
+        </button>
+      </div>
+
+      <article class="zone-detail zone-blue hidden" id="zone-blue">
+        <div class="zone-detail-emoji">😴</div>
+        <h2>Blue zone</h2>
+        <p class="zone-feelings">Students may feel tired, bored, sick, or shut down.</p>
+        <div class="strategies-box">
+          <h3>Suggested strategies</h3>
+          <div class="strategies-grid">
+            <div class="strategy-card strategy-card--blue">Drink water and stretch</div>
+            <div class="strategy-card strategy-card--blue">Take movement breaks</div>
+            <div class="strategy-card strategy-card--blue">Use bright, clear instructions</div>
+            <div class="strategy-card strategy-card--blue">Check in quietly one-to-one</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="zone-detail zone-green hidden" id="zone-green">
+        <div class="zone-detail-emoji">😊</div>
+        <h2>Green zone</h2>
+        <p class="zone-feelings">Students feel regulated, safe, and available for learning.</p>
+        <div class="strategies-box">
+          <h3>Suggested strategies</h3>
+          <div class="strategies-grid">
+            <div class="strategy-card strategy-card--blue">Start new learning tasks</div>
+            <div class="strategy-card strategy-card--blue">Celebrate productive choices</div>
+            <div class="strategy-card strategy-card--blue">Set goals for the next block</div>
+            <div class="strategy-card strategy-card--blue">Offer peer leadership roles</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="zone-detail zone-yellow hidden" id="zone-yellow">
+        <div class="zone-detail-emoji">😵</div>
+        <h2>Yellow zone</h2>
+        <p class="zone-feelings">Students may be unsettled, silly, anxious, or losing focus.</p>
+        <div class="strategies-box">
+          <h3>Suggested strategies</h3>
+          <div class="strategies-grid">
+            <div class="strategy-card strategy-card--yellow">Use breathing or counting</div>
+            <div class="strategy-card strategy-card--yellow">Offer a short sensory break</div>
+            <div class="strategy-card strategy-card--yellow">Reduce language load</div>
+            <div class="strategy-card strategy-card--yellow">Name the feeling without judgment</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="zone-detail zone-red hidden" id="zone-red">
+        <div class="zone-detail-emoji">😡</div>
+        <h2>Red zone</h2>
+        <p class="zone-feelings">Students may feel angry, panicked, unsafe, or completely dysregulated.</p>
+        <div class="strategies-box">
+          <h3>Suggested strategies</h3>
+          <div class="strategies-grid">
+            <div class="strategy-card strategy-card--red">Lower demands immediately</div>
+            <div class="strategy-card strategy-card--red">Move to a safe calm space</div>
+            <div class="strategy-card strategy-card--red">Use short predictable scripts</div>
+            <div class="strategy-card strategy-card--red">Reconnect after regulation</div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section class="view hidden" id="schedule" data-view>
+      <button class="back-btn" type="button" data-view-target="dashboard">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 18 9 12l6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Back to dashboard</span>
+      </button>
+      <h2 class="page-title">Visual schedule</h2>
+      <p class="page-desc">Click an icon, then choose a row to build a clear routine board for the day.</p>
+
+      <section class="icon-bank-section">
+        <h3 class="section-heading">Activity icons</h3>
+        <div class="icon-bank-grid">
+          <button class="icon-chip" type="button" data-icon="📚"><span class="icon-emoji">📚</span>Reading</button>
+          <button class="icon-chip" type="button" data-icon="✍️"><span class="icon-emoji">✍️</span>Writing</button>
+          <button class="icon-chip" type="button" data-icon="➗"><span class="icon-emoji">➗</span>Math</button>
+          <button class="icon-chip" type="button" data-icon="🔬"><span class="icon-emoji">🔬</span>Science</button>
+          <button class="icon-chip" type="button" data-icon="🎨"><span class="icon-emoji">🎨</span>Art</button>
+          <button class="icon-chip" type="button" data-icon="🥪"><span class="icon-emoji">🥪</span>Lunch</button>
+          <button class="icon-chip" type="button" data-icon="🏃"><span class="icon-emoji">🏃</span>Break</button>
+          <button class="icon-chip" type="button" data-icon="🧹"><span class="icon-emoji">🧹</span>Pack up</button>
+        </div>
+      </section>
+
+      <section class="schedule-box">
+        <h3 class="section-heading">Today’s schedule</h3>
+        <div class="schedule-list">
+          <div class="schedule-row">
+            <input class="schedule-input" value="Morning meeting" aria-label="Schedule item 1">
+            <button class="schedule-drop-zone" type="button" data-schedule-slot aria-label="Choose icon for item 1">🧑‍🏫</button>
+          </div>
+          <div class="schedule-row">
+            <input class="schedule-input" value="Reading workshop" aria-label="Schedule item 2">
+            <button class="schedule-drop-zone" type="button" data-schedule-slot aria-label="Choose icon for item 2">📚</button>
+          </div>
+          <div class="schedule-row">
+            <input class="schedule-input" value="Numeracy groups" aria-label="Schedule item 3">
+            <button class="schedule-drop-zone" type="button" data-schedule-slot aria-label="Choose icon for item 3">➗</button>
+          </div>
+          <div class="schedule-row">
+            <input class="schedule-input" value="Lunch and movement break" aria-label="Schedule item 4">
+            <button class="schedule-drop-zone" type="button" data-schedule-slot aria-label="Choose icon for item 4">🥪</button>
+          </div>
+          <div class="schedule-row">
+            <input class="schedule-input" value="Inquiry project" aria-label="Schedule item 5">
+            <button class="schedule-drop-zone" type="button" data-schedule-slot aria-label="Choose icon for item 5">🔬</button>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <section class="view hidden" id="nownext" data-view>
+      <button class="back-btn" type="button" data-view-target="dashboard">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 18 9 12l6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Back to dashboard</span>
+      </button>
+      <h2 class="page-title">Now &amp; next board</h2>
+      <p class="page-desc">Choose an icon, then click the board target to show learners what is happening now and what comes next.</p>
+
+      <section class="nownext-icon-bank">
+        <h3 class="section-heading">Quick icons</h3>
+        <div class="nownext-icon-grid">
+          <button class="nownext-icon-chip" type="button" data-nownext-icon="📚">📚</button>
+          <button class="nownext-icon-chip" type="button" data-nownext-icon="✍️">✍️</button>
+          <button class="nownext-icon-chip" type="button" data-nownext-icon="➗">➗</button>
+          <button class="nownext-icon-chip" type="button" data-nownext-icon="🎨">🎨</button>
+          <button class="nownext-icon-chip" type="button" data-nownext-icon="🏃">🏃</button>
+          <button class="nownext-icon-chip" type="button" data-nownext-icon="🥪">🥪</button>
+        </div>
+      </section>
+
+      <section class="whiteboard">
+        <div class="whiteboard-columns">
+          <article class="whiteboard-col whiteboard-col--now">
+            <h3>Now</h3>
+            <div class="whiteboard-col-inner">
+              <button class="nownext-drop-zone nownext-drop-zone--now" type="button" data-nownext-slot="now" aria-label="Now icon">📚</button>
+              <input class="nownext-text-input" id="nowText" value="Independent reading" aria-label="Now activity">
+            </div>
+          </article>
+          <article class="whiteboard-col whiteboard-col--next">
+            <h3>Next</h3>
+            <div class="whiteboard-col-inner">
+              <button class="nownext-drop-zone nownext-drop-zone--next" type="button" data-nownext-slot="next" aria-label="Next icon">➗</button>
+              <input class="nownext-text-input" id="nextText" value="Math stations" aria-label="Next activity">
+            </div>
+          </article>
+        </div>
+      </section>
+    </section>
+
+    <section class="view hidden" id="rewards" data-view>
+      <button class="back-btn" type="button" data-view-target="dashboard">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 18 9 12l6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Back to dashboard</span>
+      </button>
+      <h2 class="page-title">Star rewards</h2>
+      <p class="page-desc">Define a class reward, add stars as students earn them, and trigger a celebration when the jar is full.</p>
+
+      <div class="star-jar-reward-box">
+        <label for="rewardInput">Reward target</label>
+        <input class="reward-input" id="rewardInput" type="text" value="Extra creative project time on Friday" placeholder="Enter the class reward">
+      </div>
+
+      <div class="star-jar-svg-wrap">
+        <svg viewBox="0 0 220 280" aria-hidden="true">
+          <defs>
+            <clipPath id="jarClip">
+              <path d="M70 30h80v28c0 10 8 18 18 22v128c0 30-24 52-58 52s-58-22-58-52V80c10-4 18-12 18-22Z"></path>
+            </clipPath>
+          </defs>
+          <path d="M70 30h80v28c0 10 8 18 18 22v128c0 30-24 52-58 52s-58-22-58-52V80c10-4 18-12 18-22Z" fill="#fefce8" stroke="#f59e0b" stroke-width="8"></path>
+          <g id="jarStars" clip-path="url(#jarClip)"></g>
+        </svg>
+      </div>
+
+      <div class="star-counter">
+        <div class="star-count-number" id="starCount">0</div>
+        <p class="star-progress-label" id="starProgressLabel">0 of 10 stars collected</p>
+      </div>
+
+      <div class="star-controls">
+        <button class="btn btn--yellow" type="button" id="addStar">Add star</button>
+        <button class="btn btn--gray" type="button" id="removeStar">Remove star</button>
+        <button class="btn btn--purple" type="button" id="celebrateStars">Celebrate</button>
+        <button class="btn btn--red" type="button" id="resetStars">Reset</button>
+      </div>
+    </section>
+
+    <section class="view hidden" id="wheel" data-view>
+      <button class="back-btn" type="button" data-view-target="dashboard">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 18 9 12l6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Back to dashboard</span>
+      </button>
+      <h2 class="page-title">Picker wheel</h2>
+      <p class="page-desc">Paste learner names, draw the wheel instantly, and spin to select a student, group, or task fairly.</p>
+
+      <div class="wheel-layout">
+        <section>
+          <div class="wheel-canvas-wrap">
+            <div class="wheel-pointer" aria-hidden="true"></div>
+            <canvas id="wheel-canvas" width="520" height="520"></canvas>
+          </div>
+          <div class="wheel-winner-display">
+            <p class="wheel-winner-label">Selected</p>
+            <p class="wheel-winner-name" id="wheelWinner">Ava</p>
+          </div>
+        </section>
+
+        <section>
+          <label class="wheel-input-label" for="wheelNames">Names or choices</label>
+          <textarea id="wheel-names" placeholder="Add one option per line">Ava
+Noah
+Mila
+Ethan
+Zara
+Leo</textarea>
+          <p class="wheel-count-label" id="wheelCountLabel">6 entries</p>
+          <div class="timer-controls">
+            <button class="btn btn--purple" type="button" id="spinWheel">Spin wheel</button>
+            <button class="btn btn--gray" type="button" id="shuffleWheel">Shuffle list</button>
+            <button class="btn btn--blue" type="button" id="updateWheel">Refresh wheel</button>
+          </div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>routinify workspace</p>
+    <small>Designed for fast classroom operations and calm daily routines.</small>
+  </footer>
+
+  <div class="modal-overlay hidden" id="helpModal" role="dialog" aria-modal="true" aria-labelledby="helpModalTitle">
+    <div class="modal-box">
+      <div class="modal-icon" aria-hidden="true">🧭</div>
+      <h2 id="helpModalTitle">Quick help</h2>
+      <div class="bookmark-tips">
+        <div class="bookmark-tip">
+          <span aria-hidden="true">1.</span>
+          <p>Use the top navigation bar or the dashboard tool cards to switch tools without reloading the page.</p>
+        </div>
+        <div class="bookmark-tip">
+          <span aria-hidden="true">2.</span>
+          <p>Select <code>Customize layout</code> to hide dashboard widgets that your team does not use daily.</p>
+        </div>
+        <div class="bookmark-tip">
+          <span aria-hidden="true">3.</span>
+          <p>Most tools save their current visible state in the page so you can move between sections quickly during teaching.</p>
+        </div>
+      </div>
+      <div class="timer-controls">
+        <button class="btn btn--teal" type="button" id="closeHelpModal">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="celebration-banner hidden" id="celebrationBanner" aria-live="polite">
+    <div class="celebration-content">
+      <div class="celebration-bounce">🌟</div>
+      <div class="celebration-title">Amazing work</div>
+      <div class="celebration-reward" id="celebrationReward">Reward unlocked</div>
+      <button class="btn btn--green" type="button" id="closeCelebration">Close</button>
+    </div>
+  </div>
+</body>
+</html>
