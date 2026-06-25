@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useState, useEffect } from "react";
 import { BookOpen, PenTool, Calculator, Palette, Activity, Sandwich } from "lucide-react";
 import { Card } from "@/components/ui/card";
 
@@ -12,10 +12,24 @@ export const NowNext: FC = () => {
     { id: 'lunch', icon: Sandwich, color: 'text-amber-500' },
   ];
 
-  const [nowSlot, setNowSlot] = useState({ iconId: 'read', text: 'Independent reading' });
-  const [nextSlot, setNextSlot] = useState({ iconId: 'math', text: 'Math stations' });
-  
+  const [nowSlot, setNowSlot] = useState(() => {
+    const saved = localStorage.getItem('routinify-nownext-now');
+    return saved ? JSON.parse(saved) : { iconId: 'read', text: 'Independent reading' };
+  });
+  const [nextSlot, setNextSlot] = useState(() => {
+    const saved = localStorage.getItem('routinify-nownext-next');
+    return saved ? JSON.parse(saved) : { iconId: 'math', text: 'Math stations' };
+  });
+
   const [selectedIcon, setSelectedIcon] = useState<string | null>(null);
+
+  useEffect(() => {
+    localStorage.setItem('routinify-nownext-now', JSON.stringify(nowSlot));
+  }, [nowSlot]);
+
+  useEffect(() => {
+    localStorage.setItem('routinify-nownext-next', JSON.stringify(nextSlot));
+  }, [nextSlot]);
 
   const handleDropNow = () => {
     if (selectedIcon) {

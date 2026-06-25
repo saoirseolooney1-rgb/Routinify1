@@ -4,9 +4,16 @@ import { Card } from "@/components/ui/card";
 import { Play, Square } from "lucide-react";
 
 export const BreathingRoom: FC = () => {
-  const [tab, setTab] = useState<'butterfly' | 'box'>('butterfly');
+  const [tab, setTab] = useState<'butterfly' | 'box'>(() => {
+    const saved = localStorage.getItem('routinify-breathing-tab');
+    return (saved === 'butterfly' || saved === 'box') ? saved : 'butterfly';
+  });
   const [isActive, setIsActive] = useState(false);
   const [cycle, setCycle] = useState(0);
+
+  useEffect(() => {
+    localStorage.setItem('routinify-breathing-tab', tab);
+  }, [tab]);
 
   useEffect(() => {
     setIsActive(false);

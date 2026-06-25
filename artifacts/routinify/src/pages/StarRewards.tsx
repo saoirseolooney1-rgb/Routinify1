@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useState, useEffect } from "react";
 import { Star, RotateCcw, Plus, Minus, PartyPopper } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -6,9 +6,20 @@ import { Input } from "@/components/ui/input";
 import { CelebrationBanner } from "@/components/CelebrationBanner";
 
 export const StarRewards: FC = () => {
-  const [starCount, setStarCount] = useState(0);
-  const [reward, setReward] = useState("10 minutes extra recess");
+  const [starCount, setStarCount] = useState<number>(() => {
+    const saved = localStorage.getItem('routinify-star-count');
+    return saved !== null ? parseInt(saved, 10) : 0;
+  });
+  const [reward, setReward] = useState(() => localStorage.getItem('routinify-star-reward') || "10 minutes extra recess");
   const [showCelebration, setShowCelebration] = useState(false);
+
+  useEffect(() => {
+    localStorage.setItem('routinify-star-count', String(starCount));
+  }, [starCount]);
+
+  useEffect(() => {
+    localStorage.setItem('routinify-star-reward', reward);
+  }, [reward]);
 
   const handleAdd = () => {
     if (starCount < 10) {

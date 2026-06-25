@@ -1,5 +1,5 @@
 import { FC, useState, useEffect } from "react";
-import { Settings, Timer, Wind, Layout, ListTodo, Columns, Star, Dices, X, Smile, Meh, Frown } from "lucide-react";
+import { Settings, Timer, Wind, LayoutGrid as Layout, ListTodo, Columns2 as Columns, Star, Dices, X, Smile, Meh, Frown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
@@ -10,19 +10,30 @@ interface DashboardProps {
 
 export const Dashboard: FC<DashboardProps> = ({ onNavigate }) => {
   const [showSettings, setShowSettings] = useState(false);
-  const [layout, setLayout] = useState({
-    snapshot: true,
-    notes: true,
-    wellbeing: true,
-    tools: true
+  const [layout, setLayout] = useState(() => {
+    const saved = localStorage.getItem('routinify-dashboard-layout');
+    return saved ? JSON.parse(saved) : {
+      snapshot: true,
+      notes: true,
+      wellbeing: true,
+      tools: true
+    };
   });
-  
+
   const [notes, setNotes] = useState(() => localStorage.getItem("routinify_notes") || "");
-  const [climateStatus, setClimateStatus] = useState("Ready for learning");
+  const [climateStatus, setClimateStatus] = useState(() => localStorage.getItem('routinify-dashboard-climate') || "Ready for learning");
 
   useEffect(() => {
     localStorage.setItem("routinify_notes", notes);
   }, [notes]);
+
+  useEffect(() => {
+    localStorage.setItem('routinify-dashboard-layout', JSON.stringify(layout));
+  }, [layout]);
+
+  useEffect(() => {
+    localStorage.setItem('routinify-dashboard-climate', climateStatus);
+  }, [climateStatus]);
 
   const tools = [
     { id: 'timer', label: 'Focus Timer', desc: 'Customizable countdowns', icon: Timer, color: 'text-sky-500', bg: 'bg-sky-100' },

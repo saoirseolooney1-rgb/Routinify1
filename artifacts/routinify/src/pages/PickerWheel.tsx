@@ -94,10 +94,14 @@ const CelebrationOverlay: FC<CelebrationOverlayProps> = ({ winner, onClose }) =>
 };
 
 export const PickerWheel: FC = () => {
-  const [namesList, setNamesList] = useState("Ava\nNoah\nMila\nEthan\nZara\nLeo");
+  const [namesList, setNamesList] = useState(() => localStorage.getItem('routinify-wheel-names') || "Ava\nNoah\nMila\nEthan\nZara\nLeo");
   const [isSpinning, setIsSpinning] = useState(false);
   const [winner, setWinner] = useState<string | null>(null);
   const [showCelebration, setShowCelebration] = useState(false);
+
+  useEffect(() => {
+    localStorage.setItem('routinify-wheel-names', namesList);
+  }, [namesList]);
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const rotationRef = useRef(0);
